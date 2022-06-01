@@ -340,6 +340,13 @@ public function Import_reference_nos() {
         return $query->row();
     }
 
+    public function check_duplicate_ref_no($refe_no)
+    {
+        
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
     public function get_consignment_by_id_prefix($id, $pre_fix_id, $prtyid, $prfx_final) {
         $ids = $id;
         $this->db->select('Issuereg_id');
