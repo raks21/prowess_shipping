@@ -78,7 +78,7 @@
 								
 									
 								?>
-                                    <input type="text" class="form-control" tabindex=1 name="consignee_no" placeholder="5-15 char" value="<?php echo $sess; ?>">
+                                    <input type="text" class="form-control" name="consignee_no" placeholder="5-15 char" value="<?php echo $sess; ?>">
                                 </div>
                             </div>
                         </div>
@@ -121,10 +121,10 @@
                 }
             }
             ?>
-            <form class="form-horizontal style-form" name="form2" method="POST">
+            <form class="style-form" name="form2" method="POST">
 
                 <button type="submit" name="single_booking" class="btn btn-primary pull-right"  
-				onclick="$('#loading').show();" style=" margin: 11px 6px;">+ Save</button>
+				onclick="$('#loading').show();" style=" margin: 11px 6px;"  tabindex=15>+ Save</button>
 
                 <div class="row mb">
                     <!-- page start-->
@@ -140,7 +140,7 @@
                                         if ($ids_ != "") {
                                             echo "disabled";
                                         }
-                                        ?> class="form-control" name="prefix" id="prefix">
+                                        ?> class="form-control" name="prefix" id="prefix" tabindex=1>
                                             <option value="">Select</option>
                                             <?php
                                             foreach ($get_prefix as $value) {
@@ -173,7 +173,7 @@
 								
                                     <label class="col-sm-12 col-sm-12 control-label"> Consignment No </label>
                                     <div class="col-sm-12">
-                                        <input type="text" readonly class="form-control" name="consignment_no" placeholder="3-25 char" value="<?php 
+                                        <input type="text" tabindex=2 readonly class="form-control" name="consignment_no" placeholder="3-25 char" value="<?php 
 										if (is_array($consign_data)) {
                                             foreach ($consign_data as $value) {
                                                 echo str_replace('  ', '', $value->Consignment_No);
@@ -184,7 +184,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-12 col-sm-12 control-label"> Name </label>
                                     <div class="col-sm-12">
-                                        <input type="text" tabindex=2 class="form-control" name="consignee_name" placeholder="3-50 char" value="<?php
+                                        <input type="text" tabindex=3 class="form-control" name="consignee_name" placeholder="3-50 char" value="<?php
                                         if (is_array($consign_data)) {
                                             foreach ($consign_data as $value) {
                                                 echo str_replace('  ', '', $value->Consignee_Name);
@@ -197,7 +197,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-12 col-sm-12 control-label"> Address lane 1</label>
                                     <div class="col-sm-12">
-                                        <input type="text" tabindex=3 class="form-control" name="address1" placeholder="3-25 char" value="<?php
+                                        <input type="text" tabindex=4 class="form-control" name="address1" placeholder="3-25 char" value="<?php
                                         if (is_array($consign_data)) {
                                             //  echo str_replace('  ', '', $consign_data[0]->Consignee_Address1);
                                             foreach ($consign_data as $value) {
@@ -210,7 +210,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-12 col-sm-12 control-label"> Address lane 2</label>
                                     <div class="col-sm-12">
-                                        <input type="text" tabindex=4 class="form-control" name="address2" placeholder="3-25 char" value="<?php
+                                        <input type="text" tabindex=5 class="form-control" name="address2" placeholder="3-25 char" value="<?php
                                         if (is_array($consign_data)) {
                                             //echo str_replace('  ', '', $consign_data[0]->Consignee_Address2);
                                             foreach ($consign_data as $value) {
@@ -229,7 +229,7 @@
                                         if ($ids_ != "") {
                                             echo "disabled";
                                         }
-                                        ?>  class="form-control" name="partyname" id="partyname">
+                                        ?>  class="form-control" name="partyname" id="partyname" tabindex=7>
                                             <option value="">Select</option>
                                             <?php
                                             foreach ($get_party as $value) {
@@ -260,7 +260,7 @@
 								<div class="form-group">
                                     <label class="col-sm-12 col-sm-12 control-label"> Reference No</label>
                                     <div class="col-sm-12">
-                                        <input type="text" class="form-control" tabindex=5 name="reference_no" placeholder="3-25 char" value="<?php
+                                        <input type="text" class="form-control" tabindex=8 name="reference_no" placeholder="3-25 char" value="<?php
                                         if (is_array($consign_data)) {
                                             //           echo str_replace('  ', '', $consign_data[0]->Consignee_Place);
                                             foreach ($consign_data as $value) {
@@ -273,7 +273,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-12 col-sm-12 control-label"> Place</label>
                                     <div class="col-sm-12">
-                                        <input type="text" class="form-control" id="autouser" name="place" tabindex=6 placeholder="3-25 char" value="<?php 
+                                        <input type="text" class="form-control" id="autouser" name="place" tabindex=9 placeholder="3-25 char" value="<?php 
 										if (is_array($consign_data)) {
                                             foreach ($consign_data as $value) {
                                                 echo str_replace('  ', '', $value->Consignee_Place);
@@ -319,7 +319,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-12 col-sm-12 control-label"> Pincode</label>
                                     <div class="col-sm-12">
-                                        <input type="number" class="form-control"  name="pincode" tabindex=7 placeholder="000000" value="<?php
+                                        <input type="number" class="form-control"  name="pincode" tabindex=10 placeholder="000000" value="<?php
                                         if (is_array($consign_data)) {
                                             //  echo str_replace('  ', '', $consign_data[0]->Consignee_Pincode);
                                             foreach ($consign_data as $value) {
@@ -332,7 +332,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-12 col-sm-12 control-label"> Service area</label>
                                     <div class="col-sm-12">
-                                        <input type="text" class="form-control" name="service" placeholder="3-25 char" tabindex=8 value="">
+                                        <input type="text" class="form-control" name="service" placeholder="3-25 char" tabindex=11 value="">
                                     </div>
                                 </div>
                             </div>
@@ -341,13 +341,13 @@
                                 <div class="form-group">
                                     <label class="col-sm-12 col-sm-12 control-label">Date</label>
                                     <div class="col-sm-12">
-                                        <input type="date" readonly name="date" id="s_date" class="form-control"  value="<?php echo date('Y-m-d'); ?>">
+                                        <input type="date" readonly name="date" id="s_date" class="form-control" tabindex=12  value="<?php echo date('Y-m-d'); ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-12 col-sm-12 control-label"> Weight</label>
                                     <div class="col-sm-12">
-                                        <input type="text" class="form-control" name="weight" tabindex=9 placeholder="0.00" value="<?php
+                                        <input type="text" class="form-control" name="weight" tabindex=13 placeholder="0.00" value="<?php
                                         if (is_array($consign_data)) {
                                           //  echo str_replace('  ', '', $consign_data[0]->Consignee_Weight);
                                             foreach ($consign_data as $value) {
@@ -366,7 +366,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-12 col-sm-12 control-label"> No of pieces</label>
                                     <div class="col-sm-12">
-                                        <input type="text" class="form-control" name="pieces" tabindex=10 placeholder="123" value="<?php
+                                        <input type="text" class="form-control" name="pieces" tabindex=14 placeholder="123" value="<?php
                                                if (is_array($consign_data)) {
                                                    //  echo str_replace('  ', '', $consign_data[0]->No_Of_Pieces);
                                                    foreach ($consign_data as $value) {
@@ -403,4 +403,3 @@
     var today = moment().format('YYYY-MM-DD');
     document.getElementById("s_date").value = today;
 </script>
- 
