@@ -16,10 +16,9 @@ class Auth_model extends CI_Model {
     public function Authentification() {
         $notif = array();
         $username = $this->input->post('username');
-        $password = $this->input->post('password');//Utils::hash('sha1', $this->input->post('password'), AUTH_SALT);
+        $password = Utils::hash('sha1', $this->input->post('password'), AUTH_SALT);
         $sql = $this->db->query("select * from users where password = '" . $password . "' AND username = '" . $username . "'");
         $query = $sql->result();
-        // var_dump($query);die;
 
         if ($query) {
             if ($query[0]->is_active != 1) {

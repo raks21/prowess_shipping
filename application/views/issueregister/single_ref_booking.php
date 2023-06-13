@@ -89,7 +89,7 @@
             $ids_ = "";
             if (is_array($consign_data)) {
                 foreach ($consign_data as $value) {
-                    $ids_[] = str_replace(' ', '', $value->Refe_Id);
+                    $ids_ = str_replace(' ', '', $value->Refe_Id);
                 }
             }
             ?>

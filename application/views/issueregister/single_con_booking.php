@@ -114,18 +114,14 @@
                 $pre_ = "";
             }
 
-            $ids_ = "";
+            $ids_ = array();
             if (is_array($consign_data)) {
                 foreach ($consign_data as $value) {
                     $ids_[] = str_replace(' ', '', $value->Issuereg_Id);
                 }
             }
             ?>
-            <form class="style-form" name="form2" method="POST">
-
-                <button type="submit" name="single_booking" class="btn btn-primary pull-right"  
-				onclick="$('#loading').show();" style=" margin: 11px 6px;"  tabindex=15>+ Save</button>
-
+            <form class="style-form" name="form2" method="POST">  
                 <div class="row mb">
                     <!-- page start-->
                     <div class="col-lg-12">
@@ -294,7 +290,8 @@
       source: function( request, response ) {
        // Fetch data
        $.ajax({
-        url: "http://192.168.100.100/shipping_test/issueregister/placeList",
+        // url: "http://192.168.100.100/shipping_test/issueregister/placeList",
+        url: "localhost/shipping/issueregister/placeList",
         type: 'post',
         dataType: "json",
         data: {
@@ -381,8 +378,11 @@
                                                ?>">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                <button type="submit" name="single_booking" class="btn btn-primary pull-right"  
+				                onclick="$('#loading').show();" style=" margin: 11px 6px;"  tabindex=15>+ Save</button>
                             </div>
-
+                            </div>
                         </div>
                     </div>
                     <!-- col-lg-12-->

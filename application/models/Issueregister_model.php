@@ -924,9 +924,9 @@ $this->db->select('Consignment_No, Reference_No, Consignee_Name, Consignee_Addre
 		$this->db->where('Created_date<=', $imp_date_to.' 00:00:00.000');
 		$query =$this->db->order_by('Issuereg_Id', 'DESC');
 		// $query =$this->db->limit(4100); 
-        // $query = $this->db->get();
+        $query = $this->db->get();
 		//echo "<pre />";
-var_dump($query);die();
+// var_dump($query);die();
         return $query->result();
     }
 
@@ -1042,6 +1042,19 @@ var_dump($query);die();
         $query = $this->db->get();
         $query->result();
 		 return $query->num_rows();
+    }	
+
+    public function check_refe_no_in_issue_register($refe_no) {	
+		
+        $row = array();
+        //$this->db->select('Consignment_No');
+        $this->db->from('Issue_register_master');
+       // $this->db->where('Consignment_No = ', $cons_no);
+		$this->db->where('Reference_No = ', $refe_no);
+        $query = $this->db->get();
+        // var_dump($query);die;
+        $query->result();
+		return $query->num_rows();
     }	
 	
 	
@@ -1175,62 +1188,67 @@ public function check_consign1($cons_no) {
     }
 	
 	
-public function single_con_booking() {
-	
-	    $consin_no = $this->input->post('consignment_no');
-		$refe_no = $this->input->post('reference_no');
-		$date = $this->input->post('date');
+    public function single_con_booking() 
+    {	var_dump($_POST);die;
+        $consin_no = $this->input->post('consignment_no');
+        $refe_no = $this->input->post('reference_no');
+        $date = $this->input->post('date');
         $consign_date = date("d/m/y", strtotime($date));
         $pieces = $this->input->post('pieces');
         $wet = $this->input->post('weight');
         $cname = $this->input->post('consignee_name');
-		$refno = $this->input->post('reference_no');
+        // $refno = $this->input->post('reference_no');
         $cadd1 = $this->input->post('address1');
         $cadd2 = $this->input->post('address2');
         $cplc = $this->input->post('place');
-		$chk_consin = $this->check_consign_no($consin_no);
-		$chk_refe = $this->check_refe_no($refe_no);
-		$get_party = $this->get_party_by_refe($refe_no);
-		
-		//print_r($last_consin_no);
-		
-		if($chk_consin == 1){
-		 $databhai = array(
-			'Reference_No' => $refe_no,
-			//'Consignment_No'=> $consin_no,
-            'Consignee_Name' => $cname,
-            'Consignee_Address1' => $cadd1,
-            'Consignee_Address2' => $cadd2,
-            'Created_by' => $this->session->userdata['logged_in']['users_id'],
-            'Consignee_Place' => $cplc,
-            'Consignee_Pincode' => $this->input->post('pincode'),
-            'Consignee_Weight' => $wet,
-            'No_Of_Pieces' => $pieces,
-			//'Party_Id' => $get_party,
-           // 'Prefix_Id' => $partyid11,
-		    'is_printed' => 1,
-		  );
-		//  Update //
-		
-        $this->db->where('Consignment_No', $consin_no);
-        $this->db->update('Issue_register_master', $databhai);
-		
-		
-        if ($this->db->affected_rows() >= 0) {
-			$this->session->set_userdata('con_upd_id', $consin_no);
-            $this->session->set_flashdata('message', 'Saved successfully');
-            $this->session->set_flashdata('type', 'success');
-			  unset($_POST);
-			     
-        } else {
-            $this->session->set_flashdata('message', 'Something wrong');
+        $chk_consin = $this->check_consign_no($consin_no);
+        $chk_refe = $this->check_refe_no_in_issue_register($refe_no);
+        $get_party = $this->get_party_by_refe($refe_no);
+        
+        var_dump($chk_refe);die;
+        
+        if($chk_consin == 1)
+        {
+                $databhai = array(
+                    'Reference_No' => $refe_no,
+                    //'Consignment_No'=> $consin_no,
+                    'Consignee_Name' => $cname,
+                    'Consignee_Address1' => $cadd1,
+                    'Consignee_Address2' => $cadd2,
+                    'Created_by' => $this->session->userdata['logged_in']['users_id'],
+                    'Consignee_Place' => $cplc,
+                    'Consignee_Pincode' => $this->input->post('pincode'),
+                    'Consignee_Weight' => $wet,
+                    'No_Of_Pieces' => $pieces,
+                    //'Party_Id' => $get_party,
+                // 'Prefix_Id' => $partyid11,
+                    'is_printed' => 1,
+                );
+                //  Update //
+                
+                $this->db->where('Consignment_No', $consin_no);
+                $this->db->update('Issue_register_master', $databhai);		
+            
+                if ($this->db->affected_rows() >= 0) 
+                {
+                    $this->session->set_userdata('con_upd_id', $consin_no);
+                    $this->session->set_flashdata('message', 'Saved successfully');
+                    $this->session->set_flashdata('type', 'success');
+                    unset($_POST);
+                        
+                } 
+                else 
+                {
+                    $this->session->set_flashdata('message', 'Something wrong');
+                    $this->session->set_flashdata('type', 'danger');
+                }	
+            
+        }
+        else
+        {
+            $this->session->set_flashdata('message', 'Consignment no is already assigned and Reference no is not imported yet..');
             $this->session->set_flashdata('type', 'danger');
         }
-	
-		}else{
-			$this->session->set_flashdata('message', 'Consignment no is already assigned and Reference no is not imported yet..');
-            $this->session->set_flashdata('type', 'danger');
-		}
 
     }
 	

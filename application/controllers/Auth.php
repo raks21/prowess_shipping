@@ -17,6 +17,12 @@ class Auth extends CI_Controller {
     /**
      *     Sara1984      
      */
+
+    public function checkcon()
+    {
+        echo "connected";die;
+    }
+
     public function index() {
 
         redirect(base_url('auth/login'));

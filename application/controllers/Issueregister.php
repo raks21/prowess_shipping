@@ -370,7 +370,8 @@ class Issueregister extends CI_Controller {
     }
 
 
-public function singlereferencebooking() {
+public function singlereferencebooking() 
+{
         //$this->session->unset_userdata('single_prefix');
         //$this->session->unset_userdata('single_partyname');
 		if (isset($_SESSION['message'])) {
@@ -383,7 +384,8 @@ public function singlereferencebooking() {
         //$this->session->set_userdata('single_partyname', $_POST['partyname']);
         $data['last_consin_no'] = $this->issueregister_model->get_consign_no_by_insid();
         
-		if (isset($_POST['single_booking'])) {
+		if (isset($_POST['single_booking'])) 
+        {
 			
             if (isset($_SESSION['message'])) {
                 unset($_SESSION['message']);
@@ -391,33 +393,46 @@ public function singlereferencebooking() {
             }
 			//echo "SABBYASAAAAA";exit();
             $this->session->unset_userdata('chk_con_no');
-                $this->load->helper('security');
-               // $this->form_validation->set_rules('prefix', 'Prefix', 'trim|required');
-               // $this->form_validation->set_rules('partyname', 'Party Name', 'trim|required');
-				$this->form_validation->set_rules('consignment_no', 'Consignee No', 'trim|required|max_length[25]|min_length[3]|alpha_numeric_spaces');
-                $this->form_validation->set_rules('consignee_name', 'Consignee Name', 'trim|required|max_length[50]|min_length[3]');
-				$this->form_validation->set_rules('reference_no', 'Reference No', 'trim|required|max_length[25]|min_length[3]');
-                //$this->form_validation->set_rules('address1', 'Address Lane 1', 'trim|required|max_length[25]|min_length[3]');
-                //$this->form_validation->set_rules('address2', 'Address Lane 2', 'trim|required|max_length[25]|min_length[3]');
-                // $this->form_validation->set_rules('Phone', 'Phone', 'trim|required|max_length[10]|min_length[10]');
-                $this->form_validation->set_rules('place', 'place', 'trim|required|max_length[25]|min_length[3]');
-                $this->form_validation->set_rules('pincode', 'pincode', 'trim|required|max_length[6]|min_length[6]|numeric');
-                //  $this->form_validation->set_rules('service', 'Service', 'trim|required|max_length[15]|min_length[1]');
-                // $this->form_validation->set_rules('date', 'Date', 'trim|required');
-                $this->form_validation->set_rules('weight', 'weight', 'trim|required|max_length[10]|min_length[1]|numeric');
-                $this->form_validation->set_rules('pieces', 'pieces', 'trim|required|max_length[10]|min_length[1]|numeric');
-                if ($this->form_validation->run() == false) {
-                    $data['notif']['message'] = validation_errors();
-                    $data['notif']['type'] = 'danger';
-                } else {
-					 $data['notif'] = $this->issueregister_model->single_ref_booking();
+            $this->load->helper('security');
+            // $this->form_validation->set_rules('prefix', 'Prefix', 'trim|required');
+            // $this->form_validation->set_rules('partyname', 'Party Name', 'trim|required');
+            $this->form_validation->set_rules('consignment_no', 'Consignee No', 'trim|required|max_length[25]|min_length[3]|alpha_numeric_spaces');
+            $this->form_validation->set_rules('consignee_name', 'Consignee Name', 'trim|required|max_length[50]|min_length[3]');
+            $this->form_validation->set_rules('reference_no', 'Reference No', 'trim|required|max_length[25]|min_length[3]');
+            //$this->form_validation->set_rules('address1', 'Address Lane 1', 'trim|required|max_length[25]|min_length[3]');
+            //$this->form_validation->set_rules('address2', 'Address Lane 2', 'trim|required|max_length[25]|min_length[3]');
+            // $this->form_validation->set_rules('Phone', 'Phone', 'trim|required|max_length[10]|min_length[10]');
+            $this->form_validation->set_rules('place', 'place', 'trim|required|max_length[25]|min_length[3]');
+            $this->form_validation->set_rules('pincode', 'pincode', 'trim|required|max_length[6]|min_length[6]|numeric');
+            //  $this->form_validation->set_rules('service', 'Service', 'trim|required|max_length[15]|min_length[1]');
+            // $this->form_validation->set_rules('date', 'Date', 'trim|required');
+            $this->form_validation->set_rules('weight', 'weight', 'trim|required|max_length[10]|min_length[1]|numeric');
+            $this->form_validation->set_rules('pieces', 'pieces', 'trim|required|max_length[10]|min_length[1]|numeric');
+            if ($this->form_validation->run() == false) 
+            {
+                $data['notif']['message'] = validation_errors();
+                $data['notif']['type'] = 'danger';
+            }
+            else 
+            {
+                //changes by Raksha to check reference id is unique
+                $chk_refe = $this->issueregister_model->check_refe_no_in_issue_register($_POST['reference_no']);
+                if($chk_refe > 0)
+                {                     
+                    $this->session->set_flashdata('message', 'Reference number already exists');
+                    $this->session->set_flashdata('type', 'danger');
                 }
-            
+                else
+                {
+                    $data['notif'] = $this->issueregister_model->single_ref_booking();
+                }
+            }            
         }
 		
 		
         $data['consign_data'] = "";
-        if (isset($_POST['check_booking'])) {
+        if (isset($_POST['check_booking'])) 
+        {
             if (isset($_SESSION['message'])) {
                 unset($_SESSION['message']);
                 unset($_SESSION['type']);
@@ -663,20 +678,22 @@ public function singlereferencebooking_old() {
         $this->load->view('include/footer', $data);
     }
 	
-	public function singleconsignmentbooking() {
+	public function singleconsignmentbooking() 
+    {
         //$this->session->unset_userdata('single_prefix');
         //$this->session->unset_userdata('single_partyname');
-		if (isset($_SESSION['message'])) {
-                unset($_SESSION['message']);
-                unset($_SESSION['type']);
-            }
+		if (isset($_SESSION['message'])) 
+        {
+            unset($_SESSION['message']);
+            unset($_SESSION['type']);
+        }
         $data['page_title'] = "Issue Register";
         $data['single_avail_qty'] = "";
 		//$this->session->set_userdata('single_prefix', $_POST['prefix']);
         //$this->session->set_userdata('single_partyname', $_POST['partyname']);
         $data['last_consin_no'] = $this->issueregister_model->get_consign_no_by_insid();
         $data['get_place'] =  $this->issueregister_model->get_all_place();
-		if (isset($_POST['single_booking'])) {
+		if(isset($_POST['single_booking'])) {
 			
             if (isset($_SESSION['message'])) {
                 unset($_SESSION['message']);
@@ -710,8 +727,10 @@ public function singlereferencebooking_old() {
 		
 		
         $data['consign_data'] = "";
-        if (isset($_POST['check_booking'])) {
-            if (isset($_SESSION['message'])) {
+        if (isset($_POST['check_booking']))
+        {
+            if (isset($_SESSION['message'])) 
+            {
                 unset($_SESSION['message']);
                 unset($_SESSION['type']);
             }
@@ -722,11 +741,13 @@ public function singlereferencebooking_old() {
             if ($this->form_validation->run() == false) {
                 $data['notif']['message'] = validation_errors();
                 $data['notif']['type'] = 'danger';
-            } else {
-                  $this->session->set_userdata('chk_con_no', $_POST['consignee_no']);
-				  $data['consign_data'] = $this->issueregister_model->check_consign1($this->session->userdata('chk_con_no'));
-				
-			  }
+            }
+            else 
+            {
+                $consignee_no = substr($_POST['consignee_no'], 3);
+                $this->session->set_userdata('chk_con_no', $consignee_no);
+                $data['consign_data'] = $this->issueregister_model->check_consign1($this->session->userdata('chk_con_no'));				
+			}
         }
         $data['page_title'] = "Single Consignment Booking";
         $data['get_party'] = $this->party_model->get_all_party();

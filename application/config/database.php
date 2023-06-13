@@ -76,10 +76,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
     'dsn' => '',
-    'hostname' => '151.106.28.242', //'TPCPBSSERVER',
-    'username' => 'iipl',//'sa',
-    'password' => 'iiplbethlehem',//'root',//bethlehem',
-    'database' => 'shipping_newDummy',
+    'hostname' => 'DESKTOP-O0EER3P\SQLEXPRESS', //'TPCPBSSERVER',103.106.28.242
+    'username' => 'sa',//'sa',
+    'password' => 'bethlehem',//'root',//bethlehem',
+    'database' => 'new_shipp_test',
     'dbdriver' => 'sqlsrv',//'sqlsrv',
     'dbprefix' => '',
     'pconnect' => FALSE,
